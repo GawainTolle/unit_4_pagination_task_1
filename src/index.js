@@ -1,5 +1,13 @@
 import App from "./app";
-import reactDom from "react-dom";
+import { createRoot } from "react-dom/client";
+import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
 
-reactDom.render(<App />, document.getElementById("root"));
+const rootElement = document.getElementById("root");
+const root = createRoot(rootElement);
+
+root.render(
+     <React.StrictMode>
+          <App />
+     </React.StrictMode>
+);

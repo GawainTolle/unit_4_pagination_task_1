@@ -1,38 +1,62 @@
-import { useState } from "react";
 import Counter from "./counter";
+import { useState } from "react";
 
 const CountersList = () => {
-     const initailValues = [
-          { id: 0, value: 0, name: "Ненужная вещь" },
-          { id: 1, value: 1, name: "Ложка" },
-          { id: 2, value: 0, name: "Вилка" },
-          { id: 3, value: 0, name: "Тарелка" },
-          { id: 4, value: 0, name: "Набор минималиста" },
+     const initialState = [
+          { id: 0, value: 0, name: "alfaMist" },
+          { id: 1, value: 42, name: "poppyAjudha" },
+          { id: 2, value: 0, name: "feist" },
      ];
-     const [counters, setCounters] = useState(initailValues);
+     const [counter, setCounter] = useState(initialState);
      const handleDelete = (id) => {
-          const newCounters = counters.filter((person) => person.id !== id);
-          setCounters(newCounters);
+          const newCounter = counter.filter((item) => item.id !== id);
+          setCounter(newCounter);
      };
      const handleReset = () => {
-          setCounters(initailValues);
+          setCounter(initialState);
      };
-     const handleI = (id) => {
-          const newCounters = counters.filter((item) => (item.id = id + 1));
-          setCounters(newCounters);
+     const handleUpdate = () => {
+          const updatedState = [
+               { id: 0, value: 5, name: "alfaMist" },
+               { id: 1, value: 42, name: "poppyAjudha" },
+               { id: 2, value: 102, name: "feist" },
+          ];
+          setCounter(updatedState);
      };
-     const handleD = (id) => {
-          const newCounters = counters.map((item) => (item.id = id + 1));
-          setCounters(newCounters);
+     const handleIncrement = (id) => {
+          const newCounter = counter.map((item) => {
+               if (item.id === id) {
+                    return { ...item, value: item.value + 1 };
+               }
+               return item;
+          });
+          setCounter(newCounter);
      };
-     //   const handleD
+     const handleDecrement = (id) => {
+          const newCounter = counter.map((item) => {
+               if (item.id === id) {
+                    return { ...item, value: item.value - 1 };
+               }
+               return item;
+          });
+          setCounter(newCounter);
+     };
      return (
           <>
-               {counters.map((person) => (
-                    <Counter key={person.id} onDelete={handleDelete} {...person} onI={handleI} onD={handleD} />
+               {counter.map((item) => (
+                    <Counter
+                         key={item.id}
+                         {...item}
+                         onDelete={handleDelete}
+                         onIncrement={handleIncrement}
+                         onDecrement={handleDecrement}
+                    />
                ))}
-               <button className="btn btn-info btn-sm m-2" onClick={handleReset}>
+               <button className="btn btn-dark btn-sm m-2" onClick={handleReset}>
                     Reset
+               </button>
+               <button className="btn btn-dark btn-sm m-2" onClick={handleUpdate}>
+                    Update
                </button>
           </>
      );
