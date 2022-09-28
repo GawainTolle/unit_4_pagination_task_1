@@ -1,7 +1,7 @@
-import CountersList from "./components/countersList";
+import Page from "./componets/page";
 
 const App = () => {
-     return <CountersList />;
+     return <Page />;
 };
 
 export default App;
